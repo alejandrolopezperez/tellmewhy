@@ -1,0 +1,38 @@
+<div class="container-fluid m-0 pb-5 p-0 bg-main">
+  <div class="row p-0 mx-3 px-5 mx-5">
+    <div class="col-md-12 px-5 mt-5 bg-white">
+      <h1 class="form-title px-3 pt-4">Iniciar Sesión</h1>
+      <form role="form" class="p-3" (ngSubmit)="submit()" [formGroup]="form">
+        <div class="form-group">
+          <label for="email" class="form-label">
+            Correo
+            <span class="asteric">*</span>
+          </label>
+          <input
+            formControlName="email"
+            id="email"
+            class="form-control"
+            type="email" />
+        </div>
+        <div class="form-group">
+          <label for="password" class="form-label">
+            Contraseña
+            <span class="asteric">*</span>
+          </label>
+          <input
+            formControlName="password"
+            id="password"
+            class="form-control"
+            type="password" />
+        </div>
+        <button
+          type="submit"
+          name="next"
+          class="btn btn-dark action-button w-100 mt-3 p-2"
+          [disabled]="form.invalid">
+          Enviar
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

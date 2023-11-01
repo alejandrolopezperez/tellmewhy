@@ -1,0 +1,57 @@
+button {
+  width: 100%;
+  color: white;
+  background-color: var(--black);
+  border: none;
+  display: flex;
+  justify-content: center;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.content {
+  color: white;
+  font-weight: lighter;
+  font-size: 0.8rem;
+}
+
+.loading {
+  .loading-spin {
+    width: 20px;
+    height: 20px;
+    border: 1px solid white;
+    border-top: 1px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s ease-in-out infinite;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(1800deg);
+  }
+}
+
+.error {
+  animation: error 1s ease-in-out;
+  color: var(--red);
+}
+
+@keyframes error {
+  0% {
+  }
+
+  100% {
+  }
+}
+
+:host {
+  display: block;
+}

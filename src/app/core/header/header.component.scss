@@ -1,0 +1,25 @@
+header {
+  z-index: 1000;
+}
+
+nav ul li a {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+header {
+  background-color: var(--bg-header-mobile);
+  padding: 19px 20px;
+}
+
+.begin-button {
+  padding: 12px 30px;
+  box-sizing: border-box;
+  background-color: var(--black);
+  border-radius: 51px;
+  text-align: center;
+  font-size: 18px;
+  color: white;
+  font-weight: bold;
+}

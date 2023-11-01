@@ -1,0 +1,35 @@
+/* Message  */
+
+.text-justify {
+  text-align: justify;
+}
+
+.fa-exclamation {
+  left: 35px;
+  top: 15px;
+  font-size: 42px;
+}
+
+.message_title,
+.message_text {
+  color: #585757;
+}
+
+.message_title {
+  font-size: 19px;
+  letter-spacing: 4%;
+  width: 214px;
+  font-weight: 600;
+}
+
+.message_text {
+  font-size: 14px;
+  letter-spacing: 1%;
+  font-weight: 400;
+}
+
+.message_link {
+  color: #084fc7;
+  font-size: 16px;
+  font-weight: 600;
+}

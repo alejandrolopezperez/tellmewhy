@@ -1,0 +1,7 @@
+#!/bin/bash
+if [ "$3" == "1" ]; then
+  # This branch change is a result of a git checkout command, not a merge or a commit.
+  # Run npm install.
+  cp hooks/* .git/hooks/
+  npm install
+fi

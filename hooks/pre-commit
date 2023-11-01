@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Check if Angular CLI is installed
+if ! command -v ng &> /dev/null; then
+  echo "Error: Angular CLI is not installed in this project."
+  echo "Please install Angular CLI with 'npm install -g @angular/cli' if you haven't already."
+  exit 1
+fi
+
+# Run ng lint before committing
+echo "Running ng lint..."
+ng lint
+npm run build
+
+# Check the linting result
+lint_status=$?
+
+if [ $lint_status -ne 0 ]; then
+  echo $lint_status
+  exit 0
+fi
+
+echo "Linting passed. Continuing with the commit."
+exit 0

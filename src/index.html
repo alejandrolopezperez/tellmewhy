@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tell Me Why</title>
+    <base [routerLink]="['/']" />
+    <meta
+      name="viewport"
+      content="width=device-width,user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimun-scale=1.0" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/ilustrations/favIcon/apple-touch-icon.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/ilustrations/favIcon/favicon-32x32.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/ilustrations/favIcon/favicon-16x16.png" />
+    <link rel="manifest" href="assets/ilustrations/favIcon/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="assets/ilustrations/favIcon/safari-pinned-tab.svg"
+      color="#5bbad5" />
+    <script
+      src="https://kit.fontawesome.com/b44f7f284e.js"
+      crossorigin="anonymous"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+    </script>
+    <script>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod
+            ? n.callMethod.apply(n, arguments)
+            : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = '2.0';
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(
+        window,
+        document,
+        'script',
+        'https://connect.facebook.net/en_US/fbevents.js'
+      );
+      fbq('init', '1687961798337542');
+      fbq('track', 'PageView');
+    </script>
+    <noscript
+      ><img
+        height="1"
+        width="1"
+        style="display: none"
+        src="https://www.facebook.com/tr?id=1687961798337542&ev=PageView&noscript=1"
+    /></noscript>
+  </head>
+  <body>
+    <app-root></app-root>
+  </body>
+</html>

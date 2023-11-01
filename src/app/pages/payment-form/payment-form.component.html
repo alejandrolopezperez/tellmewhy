@@ -1,0 +1,671 @@
+<div class="container-fluid m-0 pb-5 p-0 bg-main">
+  <div
+    class="row p-0 m-0 d-md-flex align-items-md-center justify-content-md-center">
+    <div
+      class="col-12 col-md-6 col-lg-6 d-flex align-items-center justify-content-center justify-content-lg-end">
+      <img
+        src="/assets/ilustrations/paymentForm/paymentImg.svg"
+        alt=""
+        class="img-fluid mt-5 img-payment" />
+    </div>
+    <div
+      class="col-12 col-md-6 col-lg-6 px-3 mt-5 d-flex align-items-center justify-content-center">
+      <div
+        class="col-md-12 more-rounded px-3 pt-1 px-md-2 px-lg-4 bg-white w-lg">
+        <div class="" *ngIf="showForm">
+          <div class="form-group mt-3" *ngIf="!hasPlan">
+            <select
+              class="form-select form-title border-0 px-0"
+              [(ngModel)]="session"
+              (change)="sessionChanged()">
+              <option
+                [value]="ses"
+                *ngFor="let ses of sesiones"
+                class="bg-white"
+                style="font-size: 14px">
+                <span> {{ ses }} al Mes </span>
+              </option>
+            </select>
+          </div>
+          <h1 class="form-title pt-4 d-none">
+            <span class="capitalize"> {{ session }} </span> al Mes
+          </h1>
+          <p class="form-text" [ngClass]="{ 'mt-3': hasPlan }">
+            Paga <span class="fw-bold">{{ session }}</span> de terapia al mes
+            por
+            <span class="color-primary fw-bold"
+              >{{ priceSelected(session) }}€/sesión.
+            </span>
+            <span *ngIf="this.ahorro">
+              <br class="br-mobile" />
+              Total
+              <span
+                class="color-primary fw-bold"
+                style="text-decoration: line-through; color: #656868"
+                >{{ this.ahorro }}€/mes</span
+              >
+              <span class="color-primary fw-bold">
+                {{ this.totalPagar }}€/mes</span
+              >
+            </span>
+
+            <!-- Paga <span class="fw-bold">{{ sesion }}</span> de
+                      terapia al mes por
+                      <span class="color-primary fw-bold"
+                          >{{ priceSelected(sesion) }}€/sesión</span
+                      > -->
+          </p>
+          <!-- progressbar -->
+          <ul
+            id="progressbar"
+            class="d-flex align-items-center justify-content-between p-0 m-0">
+            <li
+              [ngClass]="step >= STEPS.BASIC ? 'active ' : 'inactive'"
+              class="list-unstyled">
+              1
+            </li>
+            <div class="spacer p-0 m-0"></div>
+            <li
+              [ngClass]="step >= STEPS.PERSONAL ? 'active' : 'inactive'"
+              class="list-unstyled">
+              2
+            </li>
+            <div class="spacer p-0 m-0"></div>
+            <li
+              [ngClass]="step === STEPS.PAYMENT ? 'active' : 'inactive'"
+              class="list-unstyled">
+              3
+            </li>
+          </ul>
+          <form
+            *ngIf="step === STEPS.BASIC"
+            [formGroup]="basicForm"
+            class="msform">
+            <!-- fieldsets 1 -->
+            <fieldset>
+              <div class="d-flex">
+                <div class="form-group me-2 w-50">
+                  <label for="name" class="form-label"
+                    >Nombre<span class="asteric">*</span></label
+                  >
+                  <input
+                    formControlName="name"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        isBasic &&
+                        basicFormControls['name'].errors &&
+                        basicFormControls['name'].touched
+                    }" />
+                  <!-- minlength="2" -->
+                  <div
+                    *ngIf="
+                      isBasic &&
+                      basicFormControls['name'].errors &&
+                      basicFormControls['name'].touched
+                    ">
+                    <div
+                      *ngIf="basicFormControls['name'].errors?.['required']"
+                      class="error-message">
+                      Nombre es requerido
+                    </div>
+                    <div
+                      *ngIf="basicFormControls['name'].errors?.['minlength']"
+                      class="error-message">
+                      Mínimo 2 caractéres
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group w-50">
+                  <label for="lastname" class="form-label"
+                    >Apellido<span class="asteric">*</span></label
+                  >
+                  <input
+                    formControlName="lastname"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        isBasic &&
+                        basicFormControls['lastname'].errors &&
+                        basicFormControls['lastname'].touched
+                    }" />
+                  <!-- minlength="2" -->
+                  <div
+                    *ngIf="
+                      isBasic &&
+                      basicFormControls['lastname'].errors &&
+                      basicFormControls['lastname'].touched
+                    ">
+                    <div
+                      *ngIf="basicFormControls['lastname'].errors?.['required']"
+                      class="error-message">
+                      Apellido es requerido
+                    </div>
+                    <div
+                      *ngIf="
+                        basicFormControls['lastname'].errors?.['minlength']
+                      "
+                      class="error-message">
+                      Mínimo 2 caractéres
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex mt-2">
+                <div class="form-group me-2 w-50">
+                  <label for="phone" class="form-label"
+                    >Teléfono<span class="asteric">*</span></label
+                  >
+                  <input
+                    formControlName="phone"
+                    id="phone"
+                    type="tel"
+                    class="form-control"
+                    ng2TelInput
+                    [ng2TelInputOptions]="{
+                      initialCountry: 'es',
+                      nationalMode: true
+                    }"
+                    style="padding-right: 40px !important"
+                    [ngClass]="{
+                      'is-invalid':
+                        isBasic &&
+                        basicFormControls['phone'].errors &&
+                        basicFormControls['phone'].touched
+                    }" />
+                  <div
+                    *ngIf="
+                      isBasic &&
+                      basicFormControls['phone'].errors &&
+                      basicFormControls['phone'].touched
+                    ">
+                    <div
+                      *ngIf="basicFormControls['phone'].errors?.['required']"
+                      class="error-message">
+                      Teléfono es requerido
+                    </div>
+                    <div
+                      *ngIf="basicFormControls['phone'].errors?.['pattern']"
+                      class="error-message">
+                      Solo se adminten dígitos
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group w-50">
+                  <label for="email" class="form-label"
+                    >Email <span class="asteric">*</span></label
+                  >
+                  <input
+                    formControlName="email"
+                    type="email"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        isBasic &&
+                        basicFormControls['email'].errors &&
+                        basicFormControls['email'].touched
+                    }" />
+                  <div
+                    *ngIf="
+                      isBasic &&
+                      basicFormControls['email'].errors &&
+                      basicFormControls['email'].touched
+                    ">
+                    <div
+                      *ngIf="basicFormControls['email'].errors?.['required']"
+                      class="error-message">
+                      Correo es requerido
+                    </div>
+                    <div
+                      *ngIf="basicFormControls['email'].errors?.['email']"
+                      class="error-message">
+                      Correo Existente
+                    </div>
+                    <div
+                      *ngIf="basicFormControls['email'].errors?.['pattern']"
+                      class="error-message">
+                      Formato inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-check mt-3">
+                <input
+                  class="form-check-input mt-2"
+                  type="checkbox"
+                  formControlName="terms" />
+                <label class="form-check-label" for="terms">
+                  Sí, Acepto la
+                  <a
+                    target="_blank"
+                    [routerLink]="['/politica-de-privacidad']"
+                    class="terms text-decoration-none"
+                    >Política de Privacidad</a
+                  >
+                  de Datos y los
+                  <a
+                    class="terms text-decoration-none"
+                    target="_blank"
+                    [routerLink]="['/terminos-y-condiciones']"
+                    >Terminos y Condiciones.</a
+                  >
+                </label>
+                <div
+                  *ngIf="
+                    isBasic &&
+                    basicFormControls['terms'].errors &&
+                    basicFormControls['terms'].touched
+                  ">
+                  <div
+                    *ngIf="basicFormControls['terms'].errors?.['required']"
+                    class="error-message">
+                    Acepta los términos
+                  </div>
+                </div>
+              </div>
+              <app-button
+                (click)="basic()"
+                type="button"
+                name="next"
+                #basicButton
+                class="btn btn-dark next action-button w-100 my-3 p-2">
+                Siguiente
+              </app-button>
+            </fieldset>
+          </form>
+          <form
+            *ngIf="step === STEPS.PERSONAL"
+            [formGroup]="personalForm"
+            class="msform">
+            <!-- fieldsets 2 -->
+            <fieldset>
+              <div class="d-flex">
+                <div class="form-group me-2 w-50">
+                  <label for="birthday" class="form-label"
+                    >Fecha de nacimiento <span class="asteric">*</span></label
+                  >
+                  <input
+                    type="date"
+                    formControlName="birthday"
+                    class="form-control"
+                    [max]="dateNow"
+                    [ngClass]="{
+                      'is-invalid':
+                        isPersonal &&
+                        personalFormControls['birthday'].errors &&
+                        personalFormControls['birthday'].touched
+                    }" />
+                  <div
+                    *ngIf="
+                      isPersonal &&
+                      personalFormControls['birthday'].errors &&
+                      personalFormControls['birthday'].touched
+                    ">
+                    <div
+                      *ngIf="
+                        personalFormControls['birthday'].errors?.['required']
+                      "
+                      class="error-message">
+                      Fecha de nacimiento es requerida
+                    </div>
+                  </div>
+                  <div class="" *ngIf="young">
+                    <div class="error-message">
+                      Tienes que ser mayor de edad para registrarte en Tell Me
+                      Why.
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group w-50">
+                  <label for="genre" class="form-label">
+                    Gérnero
+                    <span class="asteric">*</span></label
+                  >
+                  <select
+                    formControlName="genre"
+                    class="form-select w-100"
+                    [ngClass]="{
+                      'is-invalid':
+                        isPersonal &&
+                        personalFormControls['genre'].errors &&
+                        personalFormControls['genre'].touched
+                    }">
+                    <option
+                      [value]="genre"
+                      *ngFor="let genre of genres"
+                      class="bg-white">
+                      {{ genre }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="
+                      isPersonal &&
+                      personalForm.controls['genre'].errors &&
+                      personalForm.controls['genre'].touched
+                    ">
+                    <div
+                      *ngIf="personalFormControls['genre'].errors?.['required']"
+                      class="error-message">
+                      Género es requerido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex mt-2">
+                <div class="form-group me-2 w-50">
+                  <label for="password" class="form-label"
+                    >Contraseña<span class="asteric">*</span></label
+                  >
+                  <input
+                    minlength="8"
+                    type="password"
+                    formControlName="password"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        isPersonal &&
+                        password_mismatch &&
+                        personalFormControls['password'].errors &&
+                        personalFormControls['password'].touched
+                    }" />
+                  <!-- minlength="8" maxlength="15" -->
+                  <div
+                    *ngIf="
+                      isPersonal &&
+                      personalFormControls['password'].errors &&
+                      personalFormControls['password'].touched
+                    ">
+                    <div
+                      *ngIf="
+                        personalFormControls['password'].errors?.['required']
+                      "
+                      class="error-message">
+                      Contraseña es requerida
+                    </div>
+                    <div
+                      *ngIf="
+                        personalFormControls['password'].errors?.['minlength']
+                      "
+                      class="error-message">
+                      Mínimo 8 caracteres
+                    </div>
+                    <!-- <div *ngIf="personalFormControls['password'].errors?.['maxlength']" class="error-message">Máximo 15 digitos</div> -->
+                  </div>
+                  <div *ngIf="isPersonal && password_mismatch">
+                    <div class="error-message">Contraseñas no coinciden</div>
+                  </div>
+                </div>
+                <div class="form-group w-50">
+                  <label for="confirm_password" class="form-label"
+                    >Repetir Contraseña<span class="asteric">*</span></label
+                  >
+                  <input
+                    type="password"
+                    minlength="8"
+                    formControlName="confirm_password"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        isPersonal &&
+                        password_mismatch &&
+                        personalFormControls['confirm_password'].errors &&
+                        personalFormControls['confirm_password'].touched
+                    }" />
+                  <!-- minlength="8" maxlength="15" -->
+                  <div
+                    *ngIf="
+                      isPersonal &&
+                      personalFormControls['confirm_password'].errors &&
+                      personalFormControls['confirm_password'].touched
+                    ">
+                    <div
+                      *ngIf="
+                        personalFormControls['confirm_password'].errors?.[
+                          'required'
+                        ]
+                      "
+                      class="error-message">
+                      Contraseña es requerida
+                    </div>
+                    <div
+                      *ngIf="
+                        personalFormControls['confirm_password'].errors?.[
+                          'minlength'
+                        ]
+                      "
+                      class="error-message">
+                      Mínimo 8 caracteres
+                    </div>
+                    <!-- <div *ngIf="personalFormControls['confirm_password'].errors?.['maxlength']" class="error-message">Máximo 15 digitos</div> -->
+                  </div>
+                  <div class="" *ngIf="isPersonal && password_mismatch">
+                    <div class="error-message">Contraseñas no coinciden</div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex">
+                <button
+                  (click)="previous()"
+                  type="button"
+                  name="previous"
+                  class="btn btn-secondary previous action-button-previous w-100 me-2 my-3 p-2">
+                  Atrás
+                </button>
+                <app-button
+                  (click)="personal()"
+                  name="next"
+                  #personalButton
+                  class="btn btn-dark next action-button w-100 my-3 p-2">
+                  Siguiente
+                </app-button>
+              </div>
+            </fieldset>
+          </form>
+          <form
+            *ngIf="step === STEPS.PAYMENT"
+            [formGroup]="paymentForm"
+            class="msform">
+            <!-- fieldsets 3 -->
+            <fieldset>
+              <div class="d-flex">
+                <div class="form-group me-2 w-50">
+                  <label for="card" class="form-label"
+                    >N." te Tarjeta <span class="asteric">*</span></label
+                  >
+                  <input
+                    type="text"
+                    name="credit-number"
+                    formControlName="card"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        isPayment &&
+                        paymentFormControls['card'].errors &&
+                        paymentFormControls['card'].touched
+                    }"
+                    id="cc-num"
+                    autocomplete="cc-number"
+                    x-autocompletetype="cc-number"
+                    pattern="\d*" />
+                  <!-- minlength="20" -->
+                  <div
+                    *ngIf="
+                      isPayment &&
+                      paymentFormControls['card'].errors &&
+                      paymentFormControls['card'].touched
+                    ">
+                    <div
+                      *ngIf="paymentFormControls['card'].errors?.['required']"
+                      class="error-message">
+                      Numero de tarjeta es requerido
+                    </div>
+                    <div
+                      *ngIf="paymentFormControls['card'].errors?.['pattern']"
+                      class="error-message">
+                      Tarjeta inválida
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group w-50">
+                  <label for="holder" class="form-label">
+                    Nombre del titular<span class="asteric">*</span></label
+                  >
+                  <input
+                    type="text"
+                    formControlName="holder"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        isPayment &&
+                        paymentFormControls['holder'].errors &&
+                        paymentFormControls['holder'].touched
+                    }" />
+                  <!-- minlength="2" -->
+                  <div
+                    *ngIf="
+                      isPayment &&
+                      paymentFormControls['holder'].errors &&
+                      isPayment &&
+                      paymentFormControls['holder'].touched
+                    ">
+                    <div
+                      *ngIf="paymentFormControls['holder'].errors?.['required']"
+                      class="error-message">
+                      Titular es requerido
+                    </div>
+                    <div
+                      *ngIf="
+                        paymentFormControls['holder'].errors?.['minlength']
+                      "
+                      class="error-message">
+                      Mínimo 2 digitos
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex mt-2">
+                <div class="form-group me-2 w-50">
+                  <label for="expiration" class="form-label">
+                    Fecha de Expiración<span class="asteric">*</span></label
+                  >
+                  <input
+                    type="month"
+                    formControlName="expiration"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        isPayment &&
+                        paymentFormControls['expiration'].errors &&
+                        paymentFormControls['expiration'].touched
+                    }"
+                    id="cc-exp"
+                    name="cc-exp"
+                    autocomplete="cc-exp" />
+                  <div
+                    *ngIf="
+                      isPayment &&
+                      paymentFormControls['expiration'].errors &&
+                      paymentFormControls['expiration'].touched
+                    ">
+                    <div
+                      *ngIf="
+                        paymentFormControls['expiration'].errors?.['required']
+                      "
+                      class="error-message">
+                      Fecha expiración es requerido
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group w-50">
+                  <label for="code" class="form-label"
+                    >Código de Seguridad<span class="asteric">*</span></label
+                  >
+                  <input
+                    type="text"
+                    maxlength="3"
+                    formControlName="code"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        isPayment &&
+                        paymentFormControls['code'].errors &&
+                        paymentFormControls['code'].touched
+                    }"
+                    id="cvv2"
+                    name="cvv2"
+                    autocomplete="cc-csc" />
+                  <!-- maxlength="3" -->
+                  <div
+                    *ngIf="
+                      isPayment &&
+                      paymentFormControls['code'].errors &&
+                      paymentFormControls['code'].touched
+                    ">
+                    <div
+                      *ngIf="paymentFormControls['code'].errors?.['required']"
+                      class="error-message">
+                      Código es requerido
+                    </div>
+                    <div
+                      *ngIf="paymentFormControls['code'].errors?.['maxlength']"
+                      class="error-message">
+                      Máximo 3 digitos
+                    </div>
+                    <div
+                      *ngIf="paymentFormControls['code'].errors?.['pattern']"
+                      class="error-message">
+                      Solo dígitos
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex">
+                <button
+                  (click)="previous()"
+                  type="button"
+                  name="previous"
+                  class="btn btn-secondary previous action-button-previous w-100 me-2 my-3 p-2">
+                  Atrás
+                </button>
+                <app-button
+                  (click)="payment()"
+                  name="next"
+                  #paymentButton
+                  class="btn btn-dark next action-button w-100 my-3 p-2">
+                  Pagar
+                </app-button>
+              </div>
+            </fieldset>
+          </form>
+          <div class="d-flex justify-content-start ps-2">
+            <div
+              class="d-flex flex-column align-items-center justify-content-center">
+              <img
+                src="/assets/ilustrations/paymentForm/maestro.svg"
+                alt="maestro"
+                width="55" />
+              <span class="card-texts">maestro</span>
+            </div>
+            <div
+              class="d-flex flex-column align-items-center justify-content-center mx-3">
+              <img
+                src="/assets/ilustrations/paymentForm/mastercard.svg"
+                alt="mastercard"
+                width="55" />
+              <span class="card-texts">mastercard</span>
+            </div>
+            <div>
+              <img
+                src="/assets/ilustrations/paymentForm/visa.svg"
+                alt="visa"
+                class="mb-3" />
+            </div>
+          </div>
+        </div>
+        <app-payment-message [show]="show"></app-payment-message>
+      </div>
+    </div>
+  </div>
+</div>

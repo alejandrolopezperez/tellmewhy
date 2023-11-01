@@ -1,0 +1,142 @@
+footer {
+  padding: 3rem 0px;
+  margin: 0 auto;
+}
+
+span {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 22px;
+
+  /* or 157% */
+
+  text-align: center;
+}
+
+ul {
+  margin-top: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  font-family: var(--font-secondary);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 30px;
+
+  /* or 188% */
+  letter-spacing: 0.06em;
+  color: #535353;
+}
+
+.font-poppins {
+  font-family: var(--font-primary) !important;
+}
+
+.begin-button {
+  background-color: var(--black);
+  font-size: 16px;
+  width: 95%;
+}
+
+.suscribe-button {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  font-size: 18px !important;
+}
+
+.begin-button,
+.suscribe-button {
+  margin: 30px auto 50px auto;
+  box-sizing: border-box;
+  padding: 12px 30px 12px 20px !important;
+  border-radius: 51px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.list-menu {
+  font-family: var(--font-secondary);
+  text-decoration: underline;
+  text-decoration-color: #f1e40b;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18.1px;
+  line-height: 23px;
+}
+
+.link-footer {
+  font-family: var(--font-secondary);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 30px;
+  letter-spacing: 0.06em;
+  color: #535353;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pe-8 {
+    padding-right: 80px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .ps-6 {
+    padding-left: 60px;
+  }
+}
+
+@media (min-width: 992px) {
+  .suscribe-button {
+    height: 79px;
+    padding: 12px 36px !important;
+  }
+
+  .text-btn {
+    font-size: 20px;
+    line-height: normal;
+  }
+
+  .text-first-footer {
+    color: #656868;
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: 0.4px;
+  }
+
+  .img-logo-footer {
+    width: 176px;
+  }
+
+  .link-footer {
+    color: #5c5e5e;
+    font-family: var(--font-primary);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 1.08px;
+  }
+
+  .pe-8 {
+    padding-right: 54px;
+  }
+
+  .not-aling {
+    align-items: initial !important;
+  }
+
+  .ppdt-20 {
+    padding-top: 20px;
+    justify-content: initial !important;
+  }
+}

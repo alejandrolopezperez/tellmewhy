@@ -1,0 +1,45 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - sit
+
+jobs:
+  build-and-deploy:
+    name: build sit files
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.17.0'
+
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
+
+      - name: Build
+        run: |
+          npm ci
+          npm install -g @angular/cli
+          ng build --configuration=sit
+
+      - name: Deploy to Server
+        uses: easingthemes/ssh-deploy@v3.4.5
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH }}
+          SOURCE: 'dist/'
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
+          REMOTE_KEY_TYPES: +ssh-rsa
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET: ${{ secrets.REMOTE_SIT_TARGET }}
+          ARGS: ${{ secrets.REMOTE_ARGS }}
+          SSH_CMD_ARGS: -o StrictHostKeyChecking=no -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedKeyTypes=+ssh-rsa
+          EXCLUDE: '/api/'

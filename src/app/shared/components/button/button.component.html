@@ -1,0 +1,27 @@
+<button
+  [type]="type"
+  [disabled]="disabled"
+  [ngClass]="{
+    loading: state === BUTTON_STATES.LOADING,
+    success: state === BUTTON_STATES.SUCCESS,
+    error: state === BUTTON_STATES.ERROR
+  }">
+  <ng-container [ngSwitch]="state">
+    <ng-container *ngSwitchCase="BUTTON_STATES.LOADING">
+      <div class="loading-spin"></div>
+    </ng-container>
+    <ng-container *ngSwitchCase="BUTTON_STATES.SUCCESS">
+      <div class="content">
+        {{ success }}
+      </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="BUTTON_STATES.ERROR">
+      <div class="content">{{ error ?? 'Error' }}</div>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+      <div class="content">
+        <ng-content></ng-content>
+      </div>
+    </ng-container>
+  </ng-container>
+</button>

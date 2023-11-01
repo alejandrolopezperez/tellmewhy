@@ -1,0 +1,56 @@
+<div class="background-section">
+  <div class="row">
+    <div class="col-12">
+      <a [routerLink]="['/']" fragment="que_te_trae_por_aqui">
+        <i class="fa-solid fa-arrow-left"></i>
+      </a>
+    </div>
+  </div>
+  <div class="row d-responsive">
+    <div class="text-center mt-3">
+      <div class="col-12">
+        <h1 class="title mb-3">
+          <ng-container *ngIf="title">
+            {{ title.charAt(0).toUpperCase() + title.slice(1) }}
+          </ng-container>
+        </h1>
+      </div>
+      <div class="col-12">
+        <p class="text-paragraph">
+          {{ text }}
+        </p>
+      </div>
+
+      <div class="col-12">
+        <img src="../assets/ilustrations/section4/{{ icon }}.svg" />
+      </div>
+
+      <div
+        class="col-12 mb-5 mt-3 d-flex align-items-center justify-content-center">
+        <button class="btn btn-dark button-test mt-3">
+          <a [routerLink]="['/pago']">Empieza ahora</a>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="container d-desktop">
+    <div class="row">
+      <div class="col-lg-8">
+        <h1 class="title mb-4">
+          <ng-container *ngIf="title">
+            {{ title.charAt(0).toUpperCase() + title.slice(1) }}
+          </ng-container>
+        </h1>
+        <p class="text-paragraph">
+          {{ text }}
+        </p>
+        <button class="btn btn-dark button-test mt-4">
+          <a [routerLink]="['/pago']">Empieza ahora</a>
+        </button>
+      </div>
+      <div class="col-lg-4 content-img">
+        <img src="../assets/ilustrations/section4/{{ icon }}.svg" />
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,118 @@
+<div class="container-fluid m-0 pb-5 p-0 bg-main">
+  <div
+    class="row p-0 m-0 d-md-flex align-items-md-center justify-content-md-center">
+    <div
+      class="col-12 col-md-6 col-lg-6 d-flex align-items-center justify-content-center justify-content-lg-end">
+      <img
+        src="/assets/ilustrations/paymentForm/paymentImg.svg"
+        alt=""
+        class="img-fluid mt-5 img-payment" />
+    </div>
+    <div
+      class="col-12 col-md-6 col-lg-6 px-3 mt-5 d-flex align-items-center justify-content-center">
+      <div
+        class="col-md-12 more-rounded px-3 pt-1 px-md-2 px-lg-4 bg-white w-lg">
+        <div class="" *ngIf="showForm">
+          <h1 class="form-title px-3 pt-4">Contáctanos</h1>
+          <form
+            role="form"
+            class="p-3"
+            (ngSubmit)="sendData()"
+            [formGroup]="contact">
+            <div class="form-group">
+              <label for="nombre" class="form-label"
+                >Nombre<span class="asteric">*</span></label
+              >
+              <input
+                formControlName="nombre"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    contact_form['nombre'].touched &&
+                    contact_form['nombre'].invalid
+                }" />
+              <div
+                *ngIf="
+                  contact_form['nombre'].touched &&
+                  contact_form['nombre'].invalid
+                ">
+                <div
+                  *ngIf="contact_form['nombre'].errors?.['required']"
+                  class="error-message">
+                  Nombre es requerido
+                </div>
+                <div
+                  *ngIf="contact_form['nombre'].errors?.['minlength']"
+                  class="error-message">
+                  Mínimo 2 caractéres
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="correo" class="form-label"
+                >Correo<span class="asteric">*</span></label
+              >
+              <input
+                formControlName="correo"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    contact_form['correo'].touched &&
+                    contact_form['correo'].invalid
+                }" />
+              <div
+                *ngIf="
+                  contact_form['correo'].touched &&
+                  contact_form['correo'].invalid
+                ">
+                <div
+                  *ngIf="contact_form['correo'].errors?.['required']"
+                  class="error-message">
+                  Correo es requerido
+                </div>
+                <div
+                  *ngIf="contact_form['correo'].errors?.['email']"
+                  class="error-message">
+                  Formato inválido
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="asunto" class="form-label"
+                >Asunto<span class="asteric">*</span></label
+              >
+              <textarea
+                formControlName="asunto"
+                class="form-control"
+                [rows]="5"
+                [ngClass]="{
+                  'is-invalid':
+                    contact_form['asunto'].touched &&
+                    contact_form['asunto'].invalid
+                }"></textarea>
+              <div
+                *ngIf="
+                  contact_form['asunto'].touched &&
+                  contact_form['asunto'].invalid
+                ">
+                <div
+                  *ngIf="contact_form['asunto'].errors?.['required']"
+                  class="error-message">
+                  Asunto es requerido
+                </div>
+              </div>
+            </div>
+            <button
+              type="submit"
+              name="next"
+              class="btn btn-dark action-button w-100 mt-3 p-2"
+              [disabled]="contact.invalid">
+              Enviar
+            </button>
+          </form>
+        </div>
+        <app-contact-message [show]="show"></app-contact-message>
+      </div>
+    </div>
+  </div>
+</div>

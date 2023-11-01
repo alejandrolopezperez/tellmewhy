@@ -1,0 +1,23 @@
+{
+  "recommendations": [
+    "angular.ng-template",
+    "cyrilletuzi.angular-schematics",
+    "johnpapa.angular2",
+    "infinity1207.angular2-switcher",
+    "obenjiro.arrr",
+    "naumovs.color-highlight",
+    "editorconfig.editorconfig",
+    "dbaeumer.vscode-eslint",
+    "waderyan.gitblame",
+    "mhutchie.git-graph",
+    "donjayamanne.githistory",
+    "nhoizey.gremlins",
+    "esbenp.prettier-vscode",
+    "gencer.html-slim-scss-css-class-completion",
+    "sibiraj-s.vscode-scss-formatter",
+    "wayou.vscode-todo-highlight",
+    "gruntfuggly.todo-tree",
+    "shardulm94.trailing-spaces",
+    "ghaschel.vscode-angular-html"
+  ]
+}
